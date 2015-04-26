@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ImportedPublishApplication>True</ImportedPublishApplication>
+  </PropertyGroup>
+
+  <Import Project="Build.Application.proj" Condition="'$(ImportedBuildApplication)' == ''" />
+
+  <PropertyGroup>
+    <Configuration>Release</Configuration>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BuildApplicationPublishPath>$(BuildApplicationPath)\Publish</BuildApplicationPublishPath>
+  </PropertyGroup>
+
+  <Target Name="PublishApplicationFiles">
+    <ItemGroup>
+      <ApplicationFiles Include="$(BuildApplicationBinPath)\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ApplicationFiles)" DestinationFolder="$(BuildApplicationPublishPath)" />
+  </Target>
+
+  <Target Name="PublishApplication">
+    <CallTarget Targets="BuildApplication" />
+    <CallTarget Targets="PublishApplicationFiles" />
+  </Target>
+
+</Project>

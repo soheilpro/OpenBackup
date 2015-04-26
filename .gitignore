@@ -1,0 +1,7 @@
+Build/Build.rsp
+Projects/Application/Bin
+Projects/Application/Publish
+Projects/Application/Sources/_ReSharper.OpenBackup
+Projects/Application/Sources/**/obj
+Projects/Application/Sources/**/*.suo
+Projects/Application/Sources/**/*.user

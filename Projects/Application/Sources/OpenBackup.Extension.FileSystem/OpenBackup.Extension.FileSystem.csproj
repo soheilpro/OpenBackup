@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68396056-8FD9-430A-A89B-3EBC5ECB8D6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenBackup.Extension.FileSystem</RootNamespace>
+    <AssemblyName>OpenBackup.Extension.FileSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileSystem.Win32.cs" />
+    <Compile Include="FileSystem.Win32.NativeMethods.cs" />
+    <Compile Include="FileSystemPath.cs" />
+    <Compile Include="FileSystemRootBase.cs" />
+    <Compile Include="FileSystemObjectProvider.cs" />
+    <Compile Include="IFileSystemStorableObject.cs" />
+    <Compile Include="IFileSystem.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="Objects\DriveObject.cs" />
+    <Compile Include="Objects\IDirectoryObject.cs" />
+    <Compile Include="Objects\IDriveObject.cs" />
+    <Compile Include="Objects\IFileObject.cs" />
+    <Compile Include="Operations\RenameDirectoryOperation.cs" />
+    <Compile Include="Operations\RenameFileOperation.cs" />
+    <Compile Include="PathException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roots\AllDrivesRoot.cs" />
+    <Compile Include="Roots\DirectoryRoot.cs" />
+    <Compile Include="Roots\FileRoot.cs" />
+    <Compile Include="Roots\FixedDrivesRoot.cs" />
+    <Compile Include="Rules\AttributeRule.cs" />
+    <Compile Include="IFileSystemRoot.cs" />
+    <Compile Include="Objects\DirectoryObject.cs" />
+    <Compile Include="Objects\FileObject.cs" />
+    <Compile Include="Objects\FileSystemObjectBase.cs" />
+    <Compile Include="Objects\IFileSystemObject.cs" />
+    <Compile Include="Operations\CopyFileOperation.cs" />
+    <Compile Include="Operations\CreateDirectoryOperation.cs" />
+    <Compile Include="Operations\CreateHardLinkOperation.cs" />
+    <Compile Include="Operations\DeleteDirectoryOperation.cs" />
+    <Compile Include="Operations\DeleteFileOperation.cs" />
+    <Compile Include="Operations\FileSystemOperationBase.cs" />
+    <Compile Include="Rules\ArchiveRule.cs" />
+    <Compile Include="Rules\PathRule.cs" />
+    <Compile Include="Rules\ReadOnlyRule.cs" />
+    <Compile Include="Rules\SystemRule.cs" />
+    <Compile Include="Rules\DirectoryRule.cs" />
+    <Compile Include="Rules\FileRule.cs" />
+    <Compile Include="Rules\HiddenRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenBackup.Core\OpenBackup.Core.csproj">
+      <Project>{9C83AF83-6256-4707-91C3-6BC7D9D75B8E}</Project>
+      <Name>OpenBackup.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBackup.Framework\OpenBackup.Framework.csproj">
+      <Project>{8AA7AAC4-3B87-460F-A593-62932116C38F}</Project>
+      <Name>OpenBackup.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBackup.Utilities\OpenBackup.Utilities.csproj">
+      <Project>{F434E6E7-6A92-4531-84FD-EEC3BB4A62A0}</Project>
+      <Name>OpenBackup.Utilities</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

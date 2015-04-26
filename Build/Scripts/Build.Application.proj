@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <ImportedBuildApplication>True</ImportedBuildApplication>
+  </PropertyGroup>
+
+  <Import Project="Build.proj" Condition="'$(ImportedBuild)' == ''" />
+
+  <PropertyGroup>
+    <BuildApplicationPath>$(BuildProjectsPath)\Application</BuildApplicationPath>
+    <BuildApplicationBinPath>$(BuildApplicationPath)\Bin</BuildApplicationBinPath>
+    <BuildApplicationLibrariesPath>$(BuildApplicationPath)\Libraries</BuildApplicationLibrariesPath>
+    <BuildApplicationSourcesPath>$(BuildApplicationPath)\Sources</BuildApplicationSourcesPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ApplicationVersion Condition="'$(ApplicationVersion)' == ''">$(Version)</ApplicationVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+
+  <Target Name="CompileApplication">
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Core\OpenBackup.Core.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Utilities\OpenBackup.Utilities.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Framework\OpenBackup.Framework.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Runtime\OpenBackup.Runtime.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Console\OpenBackup.Console.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.Backup\OpenBackup.Extension.Backup.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.Sync\OpenBackup.Extension.Sync.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.FileSystem\OpenBackup.Extension.FileSystem.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.MetadataFileStorage\OpenBackup.Extension.MetadataFileStorage.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.DirectoryContainer\OpenBackup.Extension.DirectoryContainer.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.DirectoryStorage\OpenBackup.Extension.DirectoryStorage.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.FileSystemSource\OpenBackup.Extension.FileSystemSource.csproj" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(BuildApplicationSourcesPath)\OpenBackup.Extension.SqlServer\OpenBackup.Extension.SqlServer.csproj" Properties="Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="BuildApplication">
+    <CallTarget Targets="CompileApplication" />
+  </Target>
+
+</Project>
