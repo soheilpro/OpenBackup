@@ -61,22 +61,22 @@ namespace OpenBackup.Extension.DirectoryStorage
             var fileStorePath = GetStorePath(file);
             var destination = _backupDirectory.CombineFile(fileStorePath);
 
-            // TODO: Look in other places too? In case of possible moves/renames
-
-            var oldBackupFiles = from oldBackupDirectory in _oldBackupDirectories
-                                 let oldBackupFile = oldBackupDirectory.CombineFile(fileStorePath)
-                                 where AreIdentical(file, oldBackupFile)
-                                 select oldBackupFile;
-
-            var oldBackupCopy = oldBackupFiles.FirstOrDefault();
-
             if (!destination.Parent.Exists)
                 yield return new CreateDirectoryOperation((IDirectoryObject)destination.Parent, context.ServiceContainer.Get<IFileSystem>(), context);
 
-            if (oldBackupCopy != null && _hardLinksEnabled)
-                yield return new CreateHardLinkOperation(oldBackupCopy, destination, context.ServiceContainer.Get<IFileSystem>(), context);
-            else
-                yield return new CopyFileOperation(file, destination, context.ServiceContainer.Get<IFileSystem>(), context);
+            // TODO: Look in other places too? In case of possible moves/renames
+            if (_hardLinksEnabled)
+            {
+                var oldBackupCopy = _oldBackupDirectories.Reverse().Select(oldBackupDirectory => oldBackupDirectory.CombineFile(fileStorePath)).FirstOrDefault(oldBackupFile => AreIdentical(file, oldBackupFile));
+
+                if (oldBackupCopy != null)
+                {
+                    yield return new CreateHardLinkOperation(oldBackupCopy, destination, context.ServiceContainer.Get<IFileSystem>(), context);
+                    yield break;
+                }
+            }
+
+            yield return new CopyFileOperation(file, destination, context.ServiceContainer.Get<IFileSystem>(), context);
 
             // TODO: Should set dates as well?
             // TODO: Should set attributes?
